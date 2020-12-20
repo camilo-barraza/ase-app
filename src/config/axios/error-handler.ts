@@ -1,3 +1,6 @@
+import { toast } from '../../store/actions/toastActions';
+import { reduxStore } from '../../store/redux';
+
 type HandleError = (param: { err: any }) => void;
 
 const isString = (variable: any) => {
@@ -29,8 +32,10 @@ export const handleError: HandleError = async ({ err }) => {
     }
   }
   // handle error message
-  console.log({
-    msg,
-    type: 'error',
-  });
+  reduxStore.dispatch(
+    toast({
+      msg,
+      type: 'error',
+    }),
+  );
 };

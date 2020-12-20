@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { AppContext } from '../../app-state';
 import theme from '../../config/theme';
+import { AppContext } from '../../store/context';
 import Artists from '../artists';
 import AppContainer from '../layout/app-container';
 

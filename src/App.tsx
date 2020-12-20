@@ -1,10 +1,13 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components';
 import Routes from './components/routes';
 import './config/axios';
 import './App.css';
 import theme from './config/theme';
-import { AppContext, useStore } from './app-state';
+import { AppContext, useStore } from './store/context';
+import { reduxStore } from './store/redux';
+import Toast from './components/utils/toast';
 
 const AppContainer = styled.div`
   font-family: 'Libre Franklin', sans-serif;
@@ -26,13 +29,16 @@ function App(): JSX.Element {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppContext.Provider value={store}>
-        <AppContainer>
-          <AppWrapper>
-            <Routes />
-          </AppWrapper>
-        </AppContainer>
-      </AppContext.Provider>
+      <Provider store={reduxStore}>
+        <AppContext.Provider value={store}>
+          <AppContainer>
+            <AppWrapper>
+              <Toast />
+              <Routes />
+            </AppWrapper>
+          </AppContainer>
+        </AppContext.Provider>
+      </Provider>
     </ThemeProvider>
   );
 }

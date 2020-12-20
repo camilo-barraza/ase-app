@@ -3,7 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { AppContext } from '../app-state';
+import { connect } from 'react-redux';
+import { toast } from '../store/actions/toastActions';
+import { AppContext } from '../store/context';
 
 const Wrapper = styled.div`
   height: 400px;
@@ -124,14 +126,14 @@ const Artists = ({ artists }) => {
     <ArtistsWrapper className='w-100'>
       {artists.map((artist, index) => (
         <div key={index}>
-          <Artist {...artist} isFavorite={isFavorite[artist.id] || false} />
+          <RArtist {...artist} isFavorite={isFavorite[artist.id] || false} />
         </div>
       ))}
     </ArtistsWrapper>
   );
 };
 
-const Artist = ({ id, name, image, popularity, genres, isFavorite }) => {
+const Artist = ({ id, name, image, popularity, genres, isFavorite, toast: _toast }) => {
   const history = useHistory();
   const [{}, { addToFavorites, removeFromFavorites }] = useContext(AppContext);
 
@@ -147,6 +149,20 @@ const Artist = ({ id, name, image, popularity, genres, isFavorite }) => {
   const confirmRemove = () => {
     const res = confirm(`Are you sure you want to remove ${name} from Favorites?`);
     if (res) removeFromFavorites(id);
+    _toast({
+      type: 'success',
+      msg: `Removed ${name} from Favorites`,
+      open: true,
+    });
+  };
+
+  const onAddToFavorites = () => {
+    addToFavorites(getAritstProps());
+    _toast({
+      type: 'success',
+      msg: `Added ${name} to Favorites`,
+      open: true,
+    });
   };
 
   return (
@@ -178,7 +194,7 @@ const Artist = ({ id, name, image, popularity, genres, isFavorite }) => {
             isFavorite={isFavorite}
             onClick={() => {
               if (isFavorite) confirmRemove();
-              else addToFavorites(getAritstProps());
+              else onAddToFavorites();
             }}
           >
             <FontAwesomeIcon icon={faHeart} />
@@ -188,5 +204,9 @@ const Artist = ({ id, name, image, popularity, genres, isFavorite }) => {
     </Wrapper>
   );
 };
+
+const RArtist = connect(state => ({}), {
+  toast,
+})(Artist);
 
 export default Artists;
