@@ -6,6 +6,7 @@ import { AppContext } from '../app-state';
 import AppNavigation from './layout/app-navigation';
 import AppContainer from './layout/app-container';
 import Favorites from './pages/favorites';
+import { authTokenKey } from '../config/constants';
 
 const Page = styled.div`
   flex: 1 1 auto;
@@ -14,7 +15,7 @@ const Page = styled.div`
 `;
 
 const DEFAULT_GENRE = 21;
-const isLoggedIn = !!sessionStorage.getItem('auth-token');
+const isLoggedIn = !!sessionStorage.getItem(authTokenKey);
 
 const Routes = () => {
   return (
