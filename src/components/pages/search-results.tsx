@@ -1,22 +1,11 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Spinner from '../utils/spinner';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import Artist from '../artist';
 import AppContainer from '../layout/app-container';
 import theme from '../../config/theme';
-
-const ArtistsWrapper = styled.div`
-  margin-top: 35px;
-  padding-bottom: 100px;
-  display: flex;
-  flex-wrap: wrap;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  text-align: center;
-`;
+import Artists from '../artists';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -37,7 +26,6 @@ const SearchResults = () => {
   const { id: genreId } = useParams<any>();
   const [isLoading, setIsLoading] = useState(true);
   const [artists, setArtists] = useState<any>([]);
-  const history = useHistory();
 
   useEffect(() => {
     const loadArtists = async () => {
@@ -57,15 +45,7 @@ const SearchResults = () => {
             <Spinner />
           </SpinnerWrapper>
         )}
-        {!isLoading && (
-          <ArtistsWrapper>
-            {artists.map((artist, index) => (
-              <div key={index}>
-                <Artist {...artist} />
-              </div>
-            ))}
-          </ArtistsWrapper>
-        )}
+        {!isLoading && <Artists artists={artists} />}
       </AppContainer>
     </Wrapper>
   );

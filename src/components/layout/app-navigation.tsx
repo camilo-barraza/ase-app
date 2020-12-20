@@ -6,7 +6,6 @@ import SearchInput from '../utils/search-input';
 import AppContainer from './app-container';
 import { useHistory } from 'react-router-dom';
 import DropdownMenu from '../utils/dropdown-menu';
-import { Icon } from '../utils/buttons';
 import userSVG from '../../assets/user.svg';
 import { authTokenKey } from '../../config/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -53,6 +52,24 @@ const LogoArea = styled.div`
   justify-content: center;
   text-align: center;
   :hover {
+    cursor: pointer;
+  }
+`;
+
+const Icon = styled<any>('div')`
+  color: ${props => (props.color ? props.color : props.theme.blue20)};
+  user-select: none;
+  font-size: 18px;
+  margin-left: 10px;
+  height: ${props => (props.size ? props.size : '36px')};
+  width: ${props => (props.size ? props.size : '36px')};
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  :hover {
+    background-color: ${props => props.theme.gray20};
     cursor: pointer;
   }
 `;
@@ -126,7 +143,7 @@ const AppNavigation = () => {
     const { FAVORITES, LOGOUT } = USER_MENU_ACTIONS;
     switch (item) {
       case FAVORITES:
-        history.push('/favorites');
+        window.location.assign('/favorites');
         break;
       case LOGOUT:
         sessionStorage.setItem(authTokenKey, null);
@@ -142,7 +159,7 @@ const AppNavigation = () => {
   );
 
   const logoText = (
-    <div className='d-flex ml-1'>
+    <div className='d-flex'>
       <Text1>ASE</Text1>
       <Text2>App</Text2>
     </div>

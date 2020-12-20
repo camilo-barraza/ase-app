@@ -27,6 +27,7 @@ const theme = {
   red10: '#fde6e5',
   red30: '#DA3333',
   red40: '#BB3737',
+  pink30: '#E9336B',
 };
 
 export default theme;
