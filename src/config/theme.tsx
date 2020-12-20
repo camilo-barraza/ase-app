@@ -19,7 +19,7 @@ const theme = {
   gray55: '#505050',
   gray60: '#191919',
   green10: '#96CB38',
-  green20: '#49C0B8',
+  green20: '#48c794',
   green30: '#2D8D88',
   blue10: '#95D3E7',
   blue20: '#1C68AB',

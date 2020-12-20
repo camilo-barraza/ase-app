@@ -13,6 +13,7 @@ const componentReducer = (state = initState, action) => {
       return {
         type: action.payload.type,
         msg: action.payload.msg,
+        position: action.payload.position,
         open: true,
       };
     case CLOSE_TOAST:

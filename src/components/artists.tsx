@@ -150,7 +150,8 @@ const Artist = ({ id, name, image, popularity, genres, isFavorite, toast: _toast
     const res = confirm(`Are you sure you want to remove ${name} from Favorites?`);
     if (res) removeFromFavorites(id);
     _toast({
-      type: 'success',
+      type: 'info',
+      position: 'bottom',
       msg: `Removed ${name} from Favorites`,
       open: true,
     });
@@ -160,6 +161,7 @@ const Artist = ({ id, name, image, popularity, genres, isFavorite, toast: _toast
     addToFavorites(getAritstProps());
     _toast({
       type: 'success',
+      position: 'bottom',
       msg: `Added ${name} to Favorites`,
       open: true,
     });
