@@ -1,4 +1,4 @@
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faImage } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -11,6 +11,8 @@ const Wrapper = styled.div`
   border-radius: 5px;
   box-shadow: 0 8px 20px 0 rgba(51, 72, 115, 0.13);
   margin-bottom: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
 `;
 
 const Image = styled<any>('div')`
@@ -94,9 +96,26 @@ const ArtistsWrapper = styled.div`
   padding-bottom: 100px;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ImagePlaceholder = styled(Image)`
+  display: block;
+  outline: 0;
+  background-color: ${props => props.theme.gray30};
+  background-size: cover;
+`;
+
+const NoImageIcon = styled.div`
+  height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
+  text-align: center;
+  font-size: 40px;
+  color: ${props => props.theme.gray50};
 `;
 
 const Artists = ({ artists }) => {
@@ -125,9 +144,21 @@ const Artist = ({ id, name, image, popularity, genres, isFavorite }) => {
     history.push(`/search/${genreId}`);
   };
 
+  const confirmRemove = () => {
+    const res = confirm(`Are you sure you want to remove ${name} from Favorites?`);
+    if (res) removeFromFavorites(id);
+  };
+
   return (
     <Wrapper>
-      <Image src={image} />
+      <ImagePlaceholder>
+        {!image && (
+          <NoImageIcon>
+            <FontAwesomeIcon icon={faImage} />
+          </NoImageIcon>
+        )}
+        <Image src={image} />
+      </ImagePlaceholder>
       <Detail>
         <Name>{name}</Name>
         <div className='d-flex justify-content-between'>
@@ -146,7 +177,7 @@ const Artist = ({ id, name, image, popularity, genres, isFavorite }) => {
           <Icon
             isFavorite={isFavorite}
             onClick={() => {
-              if (isFavorite) removeFromFavorites(id);
+              if (isFavorite) confirmRemove();
               else addToFavorites(getAritstProps());
             }}
           >

@@ -57,12 +57,12 @@ const LogoArea = styled.div`
 `;
 
 const Icon = styled<any>('div')`
-  color: ${props => (props.color ? props.color : props.theme.blue20)};
+  color: ${props => props.theme.gray50};
+  height: 40px;
+  width: 40px;
+  font-size: 22px;
   user-select: none;
-  font-size: 18px;
   margin-left: 10px;
-  height: ${props => (props.size ? props.size : '36px')};
-  width: ${props => (props.size ? props.size : '36px')};
   border-radius: 100%;
   display: flex;
   align-items: center;
@@ -137,8 +137,6 @@ const SearchBox = () => {
 };
 
 const AppNavigation = () => {
-  const history = useHistory();
-
   const onSelectUserMenuOption = item => {
     const { FAVORITES, LOGOUT } = USER_MENU_ACTIONS;
     switch (item) {
