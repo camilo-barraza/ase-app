@@ -5,6 +5,12 @@ import logoPng from '../../assets/logo.png';
 import SearchInput from '../utils/search-input';
 import AppContainer from './app-container';
 import { useHistory } from 'react-router-dom';
+import DropdownMenu from '../utils/dropdown-menu';
+import { Icon } from '../utils/buttons';
+import userSVG from '../../assets/user.svg';
+import { authTokenKey } from '../../config/constants';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart, faPlus, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Wrapper = styled.div`
   min-height: 65px;
@@ -35,6 +41,50 @@ const Logo = styled.div`
     cursor: pointer;
   }
 `;
+
+const LogoArea = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+const FavoritesButton = styled.div`
+  color: ${props => props.theme.blue20};
+  font-weight: 700;
+  height: 40px;
+  font-size: 15px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  :hover {
+    cursor: pointer;
+    opacity: 0.7;
+  }
+`;
+
+enum USER_MENU_ACTIONS {
+  FAVORITES = 'FAVORITES',
+  LOGOUT = 'LOGOUT',
+}
+
+const userMenu = [
+  {
+    icon: <FontAwesomeIcon icon={faHeart} />,
+    label: 'My Favorites',
+    value: USER_MENU_ACTIONS.FAVORITES,
+  },
+  {
+    icon: <FontAwesomeIcon icon={faSignOutAlt} />,
+    label: 'Logout',
+    value: USER_MENU_ACTIONS.LOGOUT,
+  },
+];
 
 const SearchBox = () => {
   const [value, setValue] = useState('');
@@ -81,6 +131,21 @@ const SearchBox = () => {
 };
 
 const AppNavigation = () => {
+  const history = useHistory();
+
+  const onSelectUserMenuOption = item => {
+    const { FAVORITES, LOGOUT } = USER_MENU_ACTIONS;
+    switch (item) {
+      case FAVORITES:
+        history.push('/favorites');
+        break;
+      case LOGOUT:
+        sessionStorage.setItem(authTokenKey, null);
+        window.location.assign('/login');
+        break;
+    }
+  };
+
   const logo = (
     <Logo>
       <img height='40px' src={logoPng} />
@@ -97,10 +162,25 @@ const AppNavigation = () => {
   return (
     <Wrapper>
       <AppContainer>
-        <div className='d-flex d-flex align-items-center'>
-          {logo}
-          {logoText}
-          <SearchBox />
+        <div className='d-flex align-items-center justify-content-between w-100'>
+          <div className='d-flex d-flex align-items-center'>
+            <LogoArea onClick={() => window.location.assign('/')}>
+              {logo}
+              {logoText}
+            </LogoArea>
+            <SearchBox />
+          </div>
+          <div>
+            <DropdownMenu
+              icon={
+                <Icon>
+                  <img src={userSVG} draggable={false} />
+                </Icon>
+              }
+              menu={userMenu}
+              onSelectItem={onSelectUserMenuOption}
+            />
+          </div>
         </div>
       </AppContainer>
     </Wrapper>

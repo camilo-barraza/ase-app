@@ -5,6 +5,7 @@ import SearchResults from './pages/search-results';
 import { AppContext } from '../app-state';
 import AppNavigation from './layout/app-navigation';
 import AppContainer from './layout/app-container';
+import Favorites from './pages/favorites';
 
 const Page = styled.div`
   flex: 1 1 auto;
@@ -12,18 +13,10 @@ const Page = styled.div`
   overflow: scroll;
 `;
 
+const DEFAULT_GENRE = 21;
 const isLoggedIn = !!sessionStorage.getItem('auth-token');
 
 const Routes = () => {
-  // const [{ isLoggedIn }] = useContext(AppContext);
-  // const { login, dashboard } = routes;
-
-  // const ProtectedRoute = ({ path, component }) => {
-  //   return (
-  //     <Route path={path} component={() => (isLoggedIn ? component() : <Redirect to={{ pathname: login.path }} />)} />
-  //   );
-  // };
-
   return (
     <Router>
       {isLoggedIn && <AppNavigation />}
@@ -32,7 +25,8 @@ const Routes = () => {
           <Switch>
             <AppContainer>
               <Route component={SearchResults} path={'/search/:id'} />
-              <Route exact path='/' component={() => <Redirect to={`/search/21`} />} />
+              <Route component={Favorites} path={'/favorites'} />
+              <Route exact path='/' component={() => <Redirect to={`/search/${DEFAULT_GENRE}`} />} />
             </AppContainer>
           </Switch>
         </div>

@@ -35,7 +35,10 @@ const InputWrapper = styled<any>('div')`
 
 const MenuItem = styled<any>('div')`
   height: 36px;
+  font-size: 14px;
+  font-weight: 500;
   padding-right: 10px;
+  color: ${props => props.theme.gray55};
   :hover {
     cursor: pointer;
     color: ${props => props.theme.blue20};
@@ -52,6 +55,7 @@ const Input = styled<any>('input')`
   width: 100%;
   height: 42px;
   padding-left: 15px;
+  font-size: 15px;
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
   padding-right: 30px;
@@ -60,7 +64,7 @@ const Input = styled<any>('input')`
   background-color: ${props => props.theme.gray10};
   outline: none;
   font-weight: 600;
-  ${props => props.theme.gray50};
+  color: ${props => props.theme.gray55};
   ${props => {
     return !props.dropdownOpen
       ? `
@@ -104,6 +108,9 @@ const Backdrop = styled.div`
 const DefaultDiv = styled.div`
   padding: 30px;
   display: flex;
+  font-size: 14px;
+  font-weight: 600;
+  color: ${props => props.theme.gray55};
   align-items: center;
   justify-content: center;
   text-align: center;
