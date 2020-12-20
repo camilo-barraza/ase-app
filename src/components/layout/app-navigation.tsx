@@ -10,12 +10,15 @@ import { Icon } from '../utils/buttons';
 import userSVG from '../../assets/user.svg';
 import { authTokenKey } from '../../config/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faPlus, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Wrapper = styled.div`
-  min-height: 65px;
-  box-shadow: 0 8px 20px 0 rgba(51, 72, 115, 0.13);
+  display: flex;
+  height: 75px;
+  width: 100%;
+  box-shadow: 0 10px 20px 0 rgba(51, 72, 115, 0.13);
   flex: 0 1;
+  z-index: 100000000;
 `;
 
 const Text = styled.div`
@@ -24,16 +27,18 @@ const Text = styled.div`
 `;
 
 const Text1 = styled(Text)`
+  font-weight: 700;
   color: ${props => props.theme.blue20};
 `;
 
 const Text2 = styled(Text)`
+  font-weight: 700;
   color: ${props => props.theme.blue50};
 `;
 
 const SearchBoxWrapper = styled.div`
   width: 350px;
-  margin-left: 50px;
+  margin-left: 55px;
 `;
 
 const Logo = styled.div`
@@ -49,22 +54,6 @@ const LogoArea = styled.div`
   text-align: center;
   :hover {
     cursor: pointer;
-  }
-`;
-
-const FavoritesButton = styled.div`
-  color: ${props => props.theme.blue20};
-  font-weight: 700;
-  height: 40px;
-  font-size: 15px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  :hover {
-    cursor: pointer;
-    opacity: 0.7;
   }
 `;
 

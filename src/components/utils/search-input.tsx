@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Spinner from './spinner';
 
 const DropdownWrapper = styled.div`
-  z-index: 1000;
   position: relative;
 `;
 
@@ -24,7 +23,7 @@ const DropdownDiv = styled<any>('div')`
     background-color: #dfe1e3;
     box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
   }
-  box-shadow: 0px 4px 8px ${props => props.theme.gray30};
+  box-shadow: 0px 8px 16px rgba(8, 35, 48, 0.2);
 `;
 
 const InputWrapper = styled<any>('div')`

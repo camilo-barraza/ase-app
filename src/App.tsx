@@ -18,7 +18,7 @@ const AppWrapper = styled.div`
   display: flex;
   height: 100%;
   width: 100%;
-  flex-flow: column;
+  flex-direction: column;
 `;
 
 function App(): JSX.Element {
@@ -26,13 +26,13 @@ function App(): JSX.Element {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppContainer>
-        <AppContext.Provider value={store}>
+      <AppContext.Provider value={store}>
+        <AppContainer>
           <AppWrapper>
             <Routes />
           </AppWrapper>
-        </AppContext.Provider>
-      </AppContainer>
+        </AppContainer>
+      </AppContext.Provider>
     </ThemeProvider>
   );
 }

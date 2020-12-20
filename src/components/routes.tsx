@@ -2,16 +2,22 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import SearchResults from './pages/search-results';
-import { AppContext } from '../app-state';
 import AppNavigation from './layout/app-navigation';
-import AppContainer from './layout/app-container';
 import Favorites from './pages/favorites';
 import { authTokenKey } from '../config/constants';
 
 const Page = styled.div`
-  flex: 1 1 auto;
-  position: relative;
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+  background-color: red;
+`;
+
+const Content = styled.div`
+  height: 100%;
+  width: 100%;
   overflow: scroll;
+  background-color: gray;
 `;
 
 const DEFAULT_GENRE = 21;
@@ -21,17 +27,15 @@ const Routes = () => {
   return (
     <Router>
       {isLoggedIn && <AppNavigation />}
-      <Page>
-        <div className='w-100'>
-          <Switch>
-            <AppContainer>
-              <Route component={SearchResults} path={'/search/:id'} />
-              <Route component={Favorites} path={'/favorites'} />
-              <Route exact path='/' component={() => <Redirect to={`/search/${DEFAULT_GENRE}`} />} />
-            </AppContainer>
-          </Switch>
-        </div>
-      </Page>
+      <Switch>
+        <Page>
+          <Content>
+            <Route component={SearchResults} path={'/search/:id'} />
+            <Route component={Favorites} path={'/favorites'} />
+            <Route exact path='/' component={() => <Redirect to={`/search/${DEFAULT_GENRE}`} />} />
+          </Content>
+        </Page>
+      </Switch>
     </Router>
   );
 };

@@ -5,11 +5,15 @@ const Content = styled.div`
   max-width: 1200px;
 `;
 
-const AppContainer = ({ children }) => {
+const Wrapper = styled<any>('div')`
+  background-color: ${props => props.backgroundColor};
+`;
+
+const AppContainer = ({ children, backgroundColor = 'white' }) => {
   return (
-    <div className='d-flex justify-content-center h-100 w-100'>
+    <Wrapper backgroundColor={backgroundColor} className='d-flex justify-content-center w-100'>
       <Content className='ml-4 mr-4 w-100 d-flex align-items-center'>{children}</Content>
-    </div>
+    </Wrapper>
   );
 };
 
