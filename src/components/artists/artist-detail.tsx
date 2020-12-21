@@ -250,7 +250,7 @@ const Artist = ({ id, name, image, popularity, genres, toast: _toast, isDetailVi
       <div className='icon mr-2'>
         <FontAwesomeIcon icon={faStar} />
       </div>
-      Popularity score: {popularity}
+      Popularity Score: {popularity}
     </PopularityScore>
   );
 
