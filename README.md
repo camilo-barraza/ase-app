@@ -1,5 +1,14 @@
 # Aritst Search Engine Frontend
 
+App contains Login view, Search View, Artist Detail View and Favorites View.
+Login view doesn't requires username and password, clicking on Sign In is enough to load the Search View. Favorites View may be accessed by clicking on the user profile icon at the top navigation bar.
+
+## Links
+
+- App demo: https://www.loom.com/share/5ee1172be6364780b61534cc2f938a8b
+
+- Deployed app: http://ase-app.surge.sh/
+
 ## Running the app
 
 Requires environment variables with user token and api url
@@ -7,6 +16,10 @@ Requires environment variables with user token and api url
     cp .env.example .env
     yarn install
     yarn start
+
+## Notes
+
+App should be tested on google chrome for consistent results
 
 ## Deployment
 

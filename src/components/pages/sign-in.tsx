@@ -90,7 +90,7 @@ const SignIn = () => {
   const mockSignIn = () => {
     sessionStorage.setItem(authTokenKey, USER_TOKEN);
     setTimeout(() => {
-      window.location.reload();
+      window.location.assign(routes.default);
     }, 500);
   };
 
