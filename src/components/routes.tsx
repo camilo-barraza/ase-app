@@ -6,23 +6,25 @@ import { authTokenKey } from '../config/constants';
 import SearchResultsPage from './pages/search-results-page';
 import FavoritesPage from './pages/favorites-page';
 import ArtistPage from './pages/artist-page';
+import { routes } from '../config/routes-config';
+import SignIn from './pages/sign-in';
 
 const Page = styled.div`
   display: flex;
   flex-grow: 1;
   overflow: hidden;
-  background-color: red;
+  background-color: white;
 `;
 
 const Content = styled.div`
   height: 100%;
   width: 100%;
   overflow: scroll;
-  background-color: gray;
 `;
 
-const DEFAULT_GENRE = 21;
-const isLoggedIn = !!sessionStorage.getItem(authTokenKey);
+const authToken = sessionStorage.getItem(authTokenKey);
+const isLoggedIn = authToken && authToken !== null;
+if (window.location.pathname !== routes.signIn && !isLoggedIn) window.location.assign(routes.signIn);
 
 const Routes = () => {
   return (
@@ -31,10 +33,16 @@ const Routes = () => {
       <Switch>
         <Page>
           <Content>
-            <Route component={SearchResultsPage} path={'/search/:id'} />
-            <Route component={FavoritesPage} path={'/favorites'} />
-            <Route component={ArtistPage} path={'/artist/:id'} />
-            <Route exact path='/' component={() => <Redirect to={`/search/${DEFAULT_GENRE}`} />} />
+            {isLoggedIn && (
+              <>
+                <Route exact component={SearchResultsPage} path={routes.search()} />
+                <Route exact component={FavoritesPage} path={routes.favorites} />
+                <Route exact component={ArtistPage} path={routes.artistDetail()} />
+                <Redirect to={routes.default} />
+              </>
+            )}
+            <Route exact component={SignIn} path={routes.signIn} />
+            <Route exact path='/' component={() => <Redirect to={isLoggedIn ? routes.default : routes.signIn} />} />
           </Content>
         </Page>
       </Switch>

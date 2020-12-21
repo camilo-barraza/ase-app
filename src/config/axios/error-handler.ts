@@ -1,5 +1,7 @@
 import { toast } from '../../store/actions/toastActions';
 import { reduxStore } from '../../store/redux';
+import { authTokenKey } from '../constants';
+import { routes } from '../routes-config';
 
 type HandleError = (param: { err: any }) => void;
 
@@ -22,6 +24,10 @@ export const handleError: HandleError = async ({ err }) => {
     switch (err.response.status) {
       case 401:
         msg = 'Authorization Required';
+        sessionStorage.removeItem(authTokenKey);
+        setTimeout(() => {
+          window.location.assign(routes.signIn);
+        }, 500);
         break;
       case 500:
         msg = 'An error has occured on our server. Please try again later';

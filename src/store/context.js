@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
 export const AppContext = React.createContext(null);
-const getFavorites = () => JSON.parse(localStorage.getItem('favorites')) || [];
 
 export const useStore = () => {
+  const getFavorites = () => JSON.parse(localStorage.getItem('favorites')) || [];
   const [favorites, setFavorites] = useState(getFavorites());
 
   const addToFavorites = artist => {
@@ -20,7 +20,7 @@ export const useStore = () => {
     setFavorites(favs);
   };
 
-  const isFavorite = getFavorites().reduce((h, fav) => {
+  const isFavoriteHash = getFavorites().reduce((h, fav) => {
     const newH = { ...h };
     newH[fav.id] = true;
     return newH;
@@ -30,7 +30,7 @@ export const useStore = () => {
   return [
     {
       favorites,
-      isFavorite,
+      isFavoriteHash,
     },
     {
       addToFavorites,

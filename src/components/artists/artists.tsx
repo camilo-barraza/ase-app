@@ -25,7 +25,6 @@ const ArtistDetailsWrapper = styled.div`
 `;
 
 export const ArtistDetails = ({ data }) => {
-  const [{ isFavorite }, {}] = useContext(AppContext);
   const { id } = data;
   const { isLoading, data: artists } = useAPI(
     () => Axios.get(`/api/v1/music/artists/${id}/similar`, { toApi: true }),
@@ -34,9 +33,7 @@ export const ArtistDetails = ({ data }) => {
 
   return (
     <ArtistDetailsWrapper>
-      <div className='mt-4'>
-        {data && <Artist {...data} isDetailView={true} isFavorite={isFavorite[id] || false} />}
-      </div>
+      <div className='mt-4'>{data && <Artist {...data} isDetailView={true} />}</div>
       <Header> Related Artists: </Header>
       <AsyncContent isLoading={isLoading}>
         <Artists data={artists} />
@@ -46,12 +43,11 @@ export const ArtistDetails = ({ data }) => {
 };
 
 const Artists = ({ data }) => {
-  const [{ isFavorite }, {}] = useContext(AppContext);
   return (
     <ArtistsWrapper className='w-100'>
       {data.map((artist, index) => (
         <div key={index}>
-          <Artist {...artist} isFavorite={isFavorite[artist.id] || false} />
+          <Artist {...artist} />
         </div>
       ))}
     </ArtistsWrapper>

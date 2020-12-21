@@ -10,6 +10,7 @@ import { authTokenKey } from '../../config/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import Axios from 'axios';
+import { routes } from '../../config/routes-config';
 
 const Wrapper = styled.div`
   display: flex;
@@ -117,7 +118,7 @@ const SearchBox = () => {
   }, [value]);
 
   const onSelectGenre = genreId => {
-    history.push(`/search/${genreId}`);
+    history.push(routes.search(genreId));
   };
 
   const onChange = value => {
@@ -138,15 +139,17 @@ const SearchBox = () => {
 };
 
 const AppNavigation = () => {
+  const history = useHistory();
   const onSelectUserMenuOption = item => {
     const { FAVORITES, LOGOUT } = USER_MENU_ACTIONS;
     switch (item) {
       case FAVORITES:
-        window.location.assign('/favorites');
+        // window.location.assign(routes.favorites);
+        history.push(routes.favorites);
         break;
       case LOGOUT:
-        sessionStorage.setItem(authTokenKey, null);
-        window.location.assign('/login');
+        sessionStorage.removeItem(authTokenKey);
+        window.location.assign(routes.signIn);
         break;
     }
   };

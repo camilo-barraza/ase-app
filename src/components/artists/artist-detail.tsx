@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AppContext } from '../../store/context';
 import theme from '../../config/theme';
+import { routes } from '../../config/routes-config';
 
 const isDetailViewStyle = {
   width: '100%',
@@ -190,7 +191,7 @@ const ImagePlaceholder = styled(Image)`
 const Genre = ({ id, name, isPrimary = false }) => {
   const history = useHistory();
   const onSelectGenre = genreId => {
-    history.push(`/search/${genreId}`);
+    history.push(routes.search(genreId));
   };
 
   return (
@@ -208,9 +209,10 @@ const Genre = ({ id, name, isPrimary = false }) => {
   );
 };
 
-const Artist = ({ id, name, image, popularity, genres, isFavorite, toast: _toast, isDetailView = false }) => {
-  const [{}, { addToFavorites, removeFromFavorites }] = useContext(AppContext);
+const Artist = ({ id, name, image, popularity, genres, toast: _toast, isDetailView = false }) => {
+  const [{ isFavoriteHash }, { addToFavorites, removeFromFavorites }] = useContext(AppContext);
 
+  const isFavorite = isFavoriteHash[id] || false;
   const history = useHistory();
   const sortedGenres = genres.sort((a, b) => b.is_primary - a.is_primary);
   const getAritstProps = () => {
@@ -239,7 +241,7 @@ const Artist = ({ id, name, image, popularity, genres, isFavorite, toast: _toast
   };
 
   const gotoArtist = () => {
-    history.push(`/artist/${id}`);
+    history.push(routes.artistDetail(id));
   };
 
   const popularityScoreUI = (
