@@ -144,12 +144,13 @@ const AppNavigation = () => {
     const { FAVORITES, LOGOUT } = USER_MENU_ACTIONS;
     switch (item) {
       case FAVORITES:
-        // window.location.assign(routes.favorites);
-        history.push(routes.favorites);
+        window.location.assign(routes.favorites);
         break;
       case LOGOUT:
         sessionStorage.removeItem(authTokenKey);
-        window.location.assign(routes.signIn);
+        setTimeout(() => {
+          window.location.assign(routes.signIn);
+        }, 500);
         break;
     }
   };

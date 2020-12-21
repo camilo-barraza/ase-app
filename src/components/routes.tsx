@@ -38,7 +38,6 @@ const Routes = () => {
                 <Route exact component={SearchResultsPage} path={routes.search()} />
                 <Route exact component={FavoritesPage} path={routes.favorites} />
                 <Route exact component={ArtistPage} path={routes.artistDetail()} />
-                <Redirect to={routes.default} />
               </>
             )}
             <Route exact component={SignIn} path={routes.signIn} />
