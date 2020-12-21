@@ -53,12 +53,14 @@ const NoImageIcon = styled.div`
 `;
 
 const Image = styled<any>('div')`
-  height: 300px;
+  height: ${props => (props.isDetailView ? '500px' : '300px')};
   width: 100%;
   margin: 0;
   padding: 0;
   background: url(${props => props.src});
+  background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
 `;
@@ -133,8 +135,8 @@ const GenreWrapper = styled<any>('div')`
   }
 `;
 
-const Details = styled.div`
-  padding: 12px 10px 15px 15px;
+const Details = styled<any>('div')`
+  padding: ${props => (props.isDetailView ? '16px 10px 15px 20px' : '12px 10px 15px 15px')};
 `;
 
 const ViewDetailText = styled.div`
@@ -258,7 +260,7 @@ const Artist = ({ id, name, image, popularity, genres, isFavorite, toast: _toast
   const hasImage = image !== '';
   const imageUI = (
     <ImagePlaceholder isDetailView={isDetailView}>
-      {hasImage && <Image className='image' src={image} />}
+      {hasImage && <Image isDetailView={isDetailView} className='image' src={image} />}
       {isDetailView ? popularityScoreUI : viewDetailsUI}
       {!hasImage && (
         <NoImageIcon>
@@ -287,7 +289,7 @@ const Artist = ({ id, name, image, popularity, genres, isFavorite, toast: _toast
   return (
     <Wrapper isDetailView={isDetailView}>
       {imageUI}
-      <Details>
+      <Details isDetailView={isDetailView}>
         <Name>{name}</Name>
         <div className='d-flex justify-content-between'>
           <div className='d-flex'>
