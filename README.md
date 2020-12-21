@@ -1,7 +1,7 @@
 # Aritst Search Engine Frontend
 
-App contains Login view, Search View, Artist Detail View and Favorites View.
-Login view doesn't requires username and password, clicking on Sign In is enough to load the Search View. Favorites View may be accessed by clicking on the user profile icon at the top navigation bar.
+App contains Login View, Search View, Artist Detail View and Favorites View.
+Login View doesn't require a username and password, clicking on the Sign In button is enough to load the Search View. Favorites View may be accessed by clicking on the user profile icon at the top navigation bar.
 
 ## Links
 
@@ -19,7 +19,7 @@ Requires environment variables with user token and api url
 
 ## Notes
 
-App should be tested on google chrome for consistent results
+App should be tested on google chrome for consistent results.
 
 ## Deployment
 
