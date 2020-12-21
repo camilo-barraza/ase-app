@@ -34,7 +34,9 @@ export const ArtistDetails = ({ data }) => {
 
   return (
     <ArtistDetailsWrapper>
-      <div className='mt-4'>{data && <Artist {...data} detailView={true} isFavorite={isFavorite[id] || false} />}</div>
+      <div className='mt-4'>
+        {data && <Artist {...data} isDetailView={true} isFavorite={isFavorite[id] || false} />}
+      </div>
       <Header> Related Artists: </Header>
       <AsyncContent isLoading={isLoading}>
         <Artists data={artists} />
