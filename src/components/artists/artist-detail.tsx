@@ -99,6 +99,7 @@ const PopularityScore = styled.div`
   display: flex;
   top: 15px;
   right: 15px;
+  font-size: 16px;
   padding: 5px 10px;
   background-color: white;
   border-radius: 3px;
