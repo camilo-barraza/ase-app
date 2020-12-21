@@ -14,7 +14,7 @@ Login View doesn't require a username and password, clicking on the Sign In butt
 
 - App demo: https://www.loom.com/share/5ee1172be6364780b61534cc2f938a8b
 
-- Deployed app: http://ase-app.surge.sh/
+- Deployed app: https://ase-app.surge.sh/
 
 ## Running the app
 
