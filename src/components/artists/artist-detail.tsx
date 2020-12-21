@@ -286,6 +286,20 @@ const Artist = ({ id, name, image, popularity, genres, isFavorite, toast: _toast
     </>
   );
 
+  const favoriteIconUI = (
+    <div className='d-flex align-items-end'>
+      <Icon
+        isFavorite={isFavorite}
+        onClick={() => {
+          if (isFavorite) confirmRemove();
+          else onAddToFavorites();
+        }}
+      >
+        <FontAwesomeIcon icon={faHeart} />
+      </Icon>
+    </div>
+  );
+
   return (
     <Wrapper isDetailView={isDetailView}>
       {imageUI}
@@ -296,17 +310,7 @@ const Artist = ({ id, name, image, popularity, genres, isFavorite, toast: _toast
             {primaryGenreUI}
             {isDetailView && additionalGenreUI}
           </div>
-          <div className='d-flex align-items-end'>
-            <Icon
-              isFavorite={isFavorite}
-              onClick={() => {
-                if (isFavorite) confirmRemove();
-                else onAddToFavorites();
-              }}
-            >
-              <FontAwesomeIcon icon={faHeart} />
-            </Icon>
-          </div>
+          {favoriteIconUI}
         </div>
       </Details>
     </Wrapper>
