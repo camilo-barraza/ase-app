@@ -15,6 +15,6 @@ export const toast = payload => {
       });
     };
     clearInterval(intervalRef);
-    intervalRef = setTimeout(closeToast, payload.ttl || 2000);
+    intervalRef = setTimeout(closeToast, payload.ttl || 2500);
   };
 };

@@ -1,31 +1,28 @@
+import React, { useContext, useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { toast } from '../../store/actions/toastActions';
 import { faHeart, faImage } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { toast } from '../store/actions/toastActions';
-import { AppContext } from '../store/context';
+import { AppContext } from '../../store/context';
 
-const Wrapper = styled.div`
+const detailViewStyle = {
+  width: '100%',
+  marginLeft: '0',
+  marginRight: '0',
+};
+
+const Wrapper = styled<any>('div')`
   height: 400px;
-  width: 280px;
   border-radius: 5px;
   box-shadow: 0 8px 20px 0 rgba(51, 72, 115, 0.13);
   margin-bottom: 30px;
-  margin-left: 10px;
+  background-color: white;
   margin-right: 10px;
-`;
-
-const Image = styled<any>('div')`
-  height: 300px;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  background: url(${props => props.src});
-  background-size: cover;
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
+  margin-left: 10px;
+  width: 280px;
+  ${props => props.detailView && detailViewStyle};
 `;
 
 const Name = styled.div`
@@ -44,6 +41,28 @@ const Name = styled.div`
   color: ${props => props.theme.gray55};
 `;
 
+const NoImageIcon = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 40px;
+  color: ${props => props.theme.gray50};
+`;
+
+const Image = styled<any>('div')`
+  height: 300px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: url(${props => props.src});
+  background-size: cover;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+`;
+
 const GenreText = styled.div`
   overflow: hidden;
   word-wrap: break-word;
@@ -54,6 +73,21 @@ const GenreText = styled.div`
   -webkit-hyphens: auto;
   -moz-hyphens: auto;
   hyphens: auto;
+`;
+const Icon = styled<any>('div')`
+  font-size: 25px;
+  color: ${props => (props.isFavorite ? props.theme.pink30 : props.theme.gray40)};
+  height: 43px;
+  width: 43px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  :hover {
+    background-color: ${props => props.theme.gray20};
+    cursor: pointer;
+  }
 `;
 
 const Genre = styled.div`
@@ -73,33 +107,8 @@ const Genre = styled.div`
   }
 `;
 
-const Icon = styled<any>('div')`
-  font-size: 25px;
-  color: ${props => (props.isFavorite ? props.theme.pink30 : props.theme.gray40)};
-  height: 43px;
-  width: 43px;
-  border-radius: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  :hover {
-    background-color: ${props => props.theme.gray20};
-    cursor: pointer;
-  }
-`;
-
 const Detail = styled.div`
   padding: 12px 10px 15px 15px;
-`;
-
-const ArtistsWrapper = styled.div`
-  margin-top: 35px;
-  padding-bottom: 100px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
 `;
 
 const ImagePlaceholder = styled(Image)`
@@ -109,35 +118,11 @@ const ImagePlaceholder = styled(Image)`
   background-size: cover;
 `;
 
-const NoImageIcon = styled.div`
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-size: 40px;
-  color: ${props => props.theme.gray50};
-`;
-
-const Artists = ({ artists }) => {
-  const [{ isFavorite }, {}] = useContext(AppContext);
-  return (
-    <ArtistsWrapper className='w-100'>
-      {artists.map((artist, index) => (
-        <div key={index}>
-          <RArtist {...artist} isFavorite={isFavorite[artist.id] || false} />
-        </div>
-      ))}
-    </ArtistsWrapper>
-  );
-};
-
-const Artist = ({ id, name, image, popularity, genres, isFavorite, toast: _toast }) => {
+const Artist = ({ id, name, image, popularity, genres, isFavorite, toast: _toast, detailView = false }) => {
   const history = useHistory();
   const [{}, { addToFavorites, removeFromFavorites }] = useContext(AppContext);
 
-  const genre = genres.find(genre => genre.is_primary === 1);
+  const genre = genres ? genres.find(genre => genre.is_primary === 1) : {};
   const getAritstProps = () => {
     return { id, name, image, popularity, genres };
   };
@@ -167,16 +152,20 @@ const Artist = ({ id, name, image, popularity, genres, isFavorite, toast: _toast
     });
   };
 
+  const imageUI = (
+    <ImagePlaceholder>
+      {!image && (
+        <NoImageIcon>
+          <FontAwesomeIcon icon={faImage} />
+        </NoImageIcon>
+      )}
+      <Image src={image} />
+    </ImagePlaceholder>
+  );
+
   return (
-    <Wrapper>
-      <ImagePlaceholder>
-        {!image && (
-          <NoImageIcon>
-            <FontAwesomeIcon icon={faImage} />
-          </NoImageIcon>
-        )}
-        <Image src={image} />
-      </ImagePlaceholder>
+    <Wrapper detailView={detailView}>
+      {imageUI}
       <Detail>
         <Name>{name}</Name>
         <div className='d-flex justify-content-between'>
@@ -207,8 +196,6 @@ const Artist = ({ id, name, image, popularity, genres, isFavorite, toast: _toast
   );
 };
 
-const RArtist = connect(state => ({}), {
+export default connect(state => ({}), {
   toast,
 })(Artist);
-
-export default Artists;

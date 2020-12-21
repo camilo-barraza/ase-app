@@ -1,4 +1,3 @@
-import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import logoPng from '../../assets/logo.png';
@@ -10,6 +9,7 @@ import userSVG from '../../assets/user.svg';
 import { authTokenKey } from '../../config/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import Axios from 'axios';
 
 const Wrapper = styled.div`
   display: flex;
@@ -18,6 +18,7 @@ const Wrapper = styled.div`
   box-shadow: 0 10px 20px 0 rgba(51, 72, 115, 0.13);
   flex: 0 1;
   z-index: 100000000;
+  padding: 0 20px;
 `;
 
 const Text = styled.div`

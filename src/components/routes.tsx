@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import SearchResults from './pages/search-results';
 import AppNavigation from './layout/app-navigation';
-import Favorites from './pages/favorites';
 import { authTokenKey } from '../config/constants';
+import SearchResultsPage from './pages/search-results-page';
+import FavoritesPage from './pages/favorites-page';
+import ArtistPage from './pages/artist-page';
 
 const Page = styled.div`
   display: flex;
@@ -30,8 +31,9 @@ const Routes = () => {
       <Switch>
         <Page>
           <Content>
-            <Route component={SearchResults} path={'/search/:id'} />
-            <Route component={Favorites} path={'/favorites'} />
+            <Route component={SearchResultsPage} path={'/search/:id'} />
+            <Route component={FavoritesPage} path={'/favorites'} />
+            <Route component={ArtistPage} path={'/artist/:id'} />
             <Route exact path='/' component={() => <Redirect to={`/search/${DEFAULT_GENRE}`} />} />
           </Content>
         </Page>

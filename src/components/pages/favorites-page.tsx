@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import theme from '../../config/theme';
 import { AppContext } from '../../store/context';
-import Artists from '../artists';
+import Artists from '../artists/artists';
 import AppContainer from '../layout/app-container';
 
 const Wrapper = styled.div`
@@ -22,18 +22,18 @@ const EmptyList = styled.div`
   color: ${props => props.theme.gray50};
 `;
 
-const Favorites = () => {
+const FavoritesPage = () => {
   const [{ favorites }, {}] = useContext(AppContext);
   const isEmpty = favorites.length === 0;
 
   return (
     <Wrapper>
       <AppContainer backgroundColor={theme.gray10}>
-        {!isEmpty && <Artists artists={favorites} />}
+        {!isEmpty && <Artists data={favorites} />}
         {isEmpty && <EmptyList> No Artists in List </EmptyList>}
       </AppContainer>
     </Wrapper>
   );
 };
 
-export default Favorites;
+export default FavoritesPage;
