@@ -3,6 +3,13 @@
 App contains Login View, Search View, Artist Detail View and Favorites View.
 Login View doesn't require a username and password, clicking on the Sign In button is enough to load the Search View. Favorites View may be accessed by clicking on the user profile icon at the top navigation bar.
 
+## Notes
+
+- App should be tested on google chrome for consistent results.
+- Backend should enable cross-Origin resource sharing (CORS) in order to prevent the following error while running the app:
+
+Access to XMLHttpRequest at 'https://music.musicaudience.info/api/v1/music/genres?limit=30&q=' from origin 'http://localhost:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+
 ## Links
 
 - App demo: https://www.loom.com/share/5ee1172be6364780b61534cc2f938a8b
@@ -16,10 +23,6 @@ Requires environment variables with user token and api url
     cp .env.example .env
     yarn install
     yarn start
-
-## Notes
-
-App should be tested on google chrome for consistent results.
 
 ## Deployment
 
