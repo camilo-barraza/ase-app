@@ -8,7 +8,7 @@ Login View doesn't require a username and password, clicking on the Sign In butt
 - App should be tested on google chrome for consistent results.
 - Backend should enable cross-Origin resource sharing (CORS) in order to prevent the following error while running the app:
 
-Access to XMLHttpRequest at 'https://music.musicaudience.info/api/v1/music/genres?limit=30&q=' from origin 'http://localhost:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+        Access to XMLHttpRequest at 'https://music.musicaudience.info/api/v1/music/genres?limit=30&q=' from origin 'http://localhost:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 
 ## Links
 
